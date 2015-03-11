@@ -11,6 +11,14 @@ class Whois
     private $subDomain;
 
     private $servers;
+    
+    private $whoisInfo;
+
+    private $timeout = 20;
+
+    //socket options
+    private $socErrno;
+    private $socErrstr;
 
     /**
      * @param string $domain full domain name (without trailing dot)
@@ -20,7 +28,7 @@ class Whois
         $this->domain = strtolower($domain);
         // check $domain syntax and split full domain name on subdomain and TLDs
         if (
-            preg_match('/^([\p{L}\d\-]+)\.((?:[\p{L}\-]+\.?)+)$/ui', $this->domain, $matches)
+            preg_match('/^([\p{L}\d\-]+)\.((?:[\p{L}\d\-]+\.?)+)$/ui', $this->domain, $matches)
             || preg_match('/^(xn\-\-[\p{L}\d\-]+)\.(xn\-\-(?:[a-z\d-]+\.?1?)+)$/ui', $this->domain, $matches)
         ) {
             $this->subDomain = $matches[1];
@@ -39,21 +47,24 @@ class Whois
      */
     public function info()
     {
+        if ($this->whoisInfo != '')
+            return $this->whoisInfo;
+
         if ($this->isValid()) {
             $whois_server = $this->servers[$this->TLDs][0];
 
             // If TLDs have been found
             if ($whois_server != '') {
 
-                // if whois server serve replay over HTTP protocol instead of WHOIS protocol
+                // if whois server serve reply over HTTP protocol instead of WHOIS protocol
                 if (preg_match("/^https?:\/\//i", $whois_server)) {
 
-                    // curl session to get whois reposnse
+                    // curl session to get whois response
                     $ch = curl_init();
                     $url = $whois_server . $this->subDomain . '.' . $this->TLDs;
                     curl_setopt($ch, CURLOPT_URL, $url);
                     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -70,10 +81,13 @@ class Whois
                 } else {
 
                     // Getting whois information
-                    $fp = fsockopen($whois_server, 43);
+                    $fp = fsockopen($whois_server, 43, $this->socErrno, $this->socErrstr, $this->timeout);
                     if (!$fp) {
-                        return "Connection error!";
+                        return "Connection error! ".$this->socErrno.":".$this->socErrstr;
                     }
+                    stream_set_blocking($fp, true);
+                    stream_set_timeout($fp, $this->timeout);
+                    $info = stream_get_meta_data($fp);
 
                     $dom = $this->subDomain . '.' . $this->TLDs;
                     fputs($fp, "$dom\r\n");
@@ -82,8 +96,8 @@ class Whois
                     $string = '';
 
                     // Checking whois server for .com and .net
-                    if ($this->TLDs == 'com' || $this->TLDs == 'net') {
-                        while (!feof($fp)) {
+                    if ($this->TLDs === 'com' || $this->TLDs === 'net') {
+                        while ( (!feof($fp)) && (!$info['timed_out']) ) {
                             $line = trim(fgets($fp, 128));
 
                             $string .= $line;
@@ -93,12 +107,17 @@ class Whois
                             if (strtolower($lineArr[0]) == 'whois server') {
                                 $whois_server = trim($lineArr[1]);
                             }
+                            $info = stream_get_meta_data($fp);
                         }
                         // Getting whois information
-                        $fp = fsockopen($whois_server, 43);
+                        $fp = fsockopen($whois_server, 43, $this->socErrno, $this->socErrstr, $this->timeout);
                         if (!$fp) {
-                            return "Connection error!";
+                            return "Connection error! ".$this->socErrno.":".$this->socErrstr;
                         }
+
+                        stream_set_blocking($fp, TRUE);
+                        stream_set_timeout($fp,$this->timeout);
+                        $info = stream_get_meta_data($fp);
 
                         $dom = $this->subDomain . '.' . $this->TLDs;
                         fputs($fp, "$dom\r\n");
@@ -112,8 +131,9 @@ class Whois
 
                         // Checking for other tld's
                     } else {
-                        while (!feof($fp)) {
+                        while ( (!feof($fp)) && (!$info['timed_out']) ) {
                             $string .= fgets($fp, 128);
+                            $info = stream_get_meta_data($fp);
                         }
                     }
                     fclose($fp);
@@ -122,7 +142,8 @@ class Whois
                 $string_encoding = mb_detect_encoding($string, "UTF-8, ISO-8859-1, ISO-8859-15", true);
                 $string_utf8 = mb_convert_encoding($string, "UTF-8", $string_encoding);
 
-                return htmlspecialchars($string_utf8, ENT_COMPAT, "UTF-8", true);
+                $this->whoisInfo = htmlspecialchars($string_utf8, ENT_COMPAT, "UTF-8", true);
+                return $this->whoisInfo;
             } else {
                 return "No whois server for this tld in list!";
             }
@@ -213,6 +234,14 @@ class Whois
       return $result;
     }
 
+    /**
+     * @return bool
+     */
+    public function isServerDefined(): bool
+    {
+        return isset($this->servers[$this->TLDs]);
+    }
+
     public function htmlInfo()
     {
         return nl2br($this->info());
@@ -247,7 +276,10 @@ class Whois
      */
     public function isAvailable()
     {
-        $whois_string = $this->info();
+        if ($this->whoisInfo == '')
+            $whois_string = $this->info();
+        else 
+        	$whois_string = $this->whoisInfo;
         $not_found_string = '';
         if (isset($this->servers[$this->TLDs][1])) {
            $not_found_string = $this->servers[$this->TLDs][1];
@@ -280,7 +312,7 @@ class Whois
         ) {
             $tmp_domain = strtolower($this->subDomain);
             if (
-                preg_match("/^[a-z0-9\-]{3,}$/", $tmp_domain)
+                preg_match("/^[a-z0-9\-]{1,}$/", $tmp_domain)
                 && !preg_match("/^-|-$/", $tmp_domain) //&& !preg_match("/--/", $tmp_domain)
             ) {
                 return true;
@@ -288,5 +320,21 @@ class Whois
         }
 
         return false;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout(): int
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param  int  $timeout
+     */
+    public function setTimeout(int $timeout): void
+    {
+        $this->timeout = $timeout;
     }
 }

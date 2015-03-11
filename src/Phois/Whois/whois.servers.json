@@ -183,6 +183,26 @@
         "whois.nic.br",
         "No match for"
     ],
+    "ac.uk": [
+        "whois.ja.net",
+        "Sorry - no"
+    ],
+    "academy": [
+        "whois.donuts.co",
+        "Domain not found"
+    ],
+    "accountants": [
+        "whois.donuts.co",
+        "Domain not found."
+    ],
+    "actor": [
+        "whois.unitedtld.com",
+        "Domain not found."
+    ],
+    "ad": [
+        "whois.ripe.net",
+        "no entries found"
+    ],
     "adm.br": [
         "whois.nic.br",
         "No match for"
@@ -1399,6 +1419,10 @@
         "whois.dns.pt",
         "no match"
     ],
+    "com.ro": [
+        "whois.rotld.ro",
+        "No entries found"
+    ],
     "edu.pt": [
         "whois.dns.pt",
         "no match"
@@ -1518,42 +1542,6 @@
     "net.ir": [
         "whois.nic.ir",
         "no entries found"
-    ],
-    "ru": [
-        "whois.ripn.net",
-        "No entries found"
-    ],
-    "xn--p1ai": [
-        "whois.ripn.net",
-        "No entries found"
-    ],
-    "pp.ru": [
-        "whois.nic.ru",
-        "No entries found"
-    ],
-    "net.ru": [
-        "whois.ripn.net",
-        "No entries found"
-    ],
-    "org.ru": [
-        "whois.nic.ru",
-        "No entries found"
-    ],
-    "spb.ru": [
-        "whois.nic.ru",
-        "No entries found"
-    ],
-    "msk.ru": [
-        "whois.nic.ru",
-        "No entries found"
-    ],
-    "su": [
-        "whois.ripn.net",
-        "No entries found"
-    ],
-    "sochi.su": [
-        "whois.nic.ru",
-        "No entries found"
     ],
     "com.ru": [
         "whois.ripn.net",
@@ -1807,6 +1795,94 @@
         "whois.donuts.co",
         "Domain not found"
     ],
+    "doosan": [
+        "whois.nic.doosan",
+        "No match for"
+    ],
+    "durban": [
+        "durban-whois.registry.net.za",
+        "Available"
+    ],
+    "dvag": [
+        "whois.ksregistry.net",
+        "not found..."
+    ],
+    "dz": [
+        "whois.nic.dz",
+        "NO OBJECT FOUND!"
+    ],
+    "eat": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "ec": [
+        "whois.nic.ec",
+        "Status: Not Registered"
+    ],
+    "ecn.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "eco.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "edu": [
+        "whois.internic.net",
+        "No match for"
+    ],
+    "edu.au": [
+        "whois.aunic.net",
+        "No Data Found"
+    ],
+    "edu.gr": [
+        "http:\/\/grwhois.ics.forth.gr:800\/plainwhois\/plainWhois?domainName=",
+        "not exist"
+    ],
+    "edu.gt": [
+        "http:\/\/www.gt\/cgi-bin\/whois.cgi?domain=",
+        "DOMINIO NO REGISTRADO"
+    ],
+    "edu.hk": [
+        "whois.hkdnr.net.hk",
+        "The domain has not been registered"
+    ],
+    "edu.mm": [
+        "whois.nic.mm",
+        "No domains matched"
+    ],
+    "edu.mx": [
+        "whois.nic.mx",
+        "Object_Not_Found"
+    ],
+    "edu.my": [
+        "whois.mynic.net.my",
+        "does not exist"
+    ],
+    "edu.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "edu.pt": [
+        "whois.dns.pt",
+        "no match"
+    ],
+    "edu.rs": [
+        "whois.rnids.rs",
+        "%ERROR:103"
+    ],
+    "edu.sg": [
+        "whois.nic.net.sg",
+        "Domain Not Found"
+    ],
+    "edu.tr": [
+        "whois.metu.edu.tr",
+        "No match found"
+    ],
+    "edu.za": [
+        "whois.co.za",
+        "No information available"
+    ],
     "education": [
         "whois.donuts.co",
         "Domain not found"
@@ -1858,6 +1934,130 @@
     "glass": [
         "whois.donuts.co",
         "Domain not found"
+    ],
+    "gle": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "global": [
+        "whois.nic.global",
+        "NOT FOUND"
+    ],
+    "globo": [
+        "whois.gtlds.nic.br",
+        "No match for"
+    ],
+    "gmail": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "gmina.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "gmx": [
+        "whois-fe1.gmx.tango.knipp.de",
+        "% no matching objects found"
+    ],
+    "go.id": [
+        "whois.idnic.net.id",
+        "Not found"
+    ],
+    "go.jp": [
+        "whois.nic.ad.jp",
+        "No match!!"
+    ],
+    "go.kr": [
+        "whois.nic.or.kr",
+        "is not registered"
+    ],
+    "go.th": [
+        "whois.thnic.net",
+        "No match for"
+    ],
+    "gob.gt": [
+        "http:\/\/www.gt\/cgi-bin\/whois.cgi?domain=",
+        "DOMINIO NO REGISTRADO"
+    ],
+    "gob.mx": [
+        "whois.nic.mx",
+        "Object_Not_Found"
+    ],
+    "goldpoint": [
+        "whois.nic.goldpoint",
+        "DOMAIN NOT FOUND"
+    ],
+    "goo": [
+        "whois.nic.gmo",
+        "DOMAIN NOT FOUND"
+    ],
+    "goog": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "google": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "gop": [
+        "whois-cl01.mm-registry.com",
+        "is available for registration"
+    ],
+    "gov": [
+        "whois.nic.gov",
+        "No match for"
+    ],
+    "gov.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "gov.cn": [
+        "whois.cnnic.net.cn",
+        "no matching record"
+    ],
+    "gov.ec": [
+        "whois.lac.net",
+        "No match found"
+    ],
+    "gov.gr": [
+        "http:\/\/grwhois.ics.forth.gr:800\/plainwhois\/plainWhois?domainName=",
+        "not exist"
+    ],
+    "gov.il": [
+        "whois.isoc.org.il",
+        "No data was found"
+    ],
+    "gov.in": [
+        "whois.inregistry.in",
+        "NOT FOUND"
+    ],
+    "gov.mm": [
+        "whois.nic.mm",
+        "No domains matched"
+    ],
+    "gov.my": [
+        "whois.mynic.net.my",
+        "does not exist"
+    ],
+    "gov.sg": [
+        "whois.nic.net.sg",
+        "Domain Not Found"
+    ],
+    "gov.tr": [
+        "whois.metu.edu.tr",
+        "No match found"
+    ],
+    "gov.za": [
+        "whois.co.za",
+        "No information available"
+    ],
+    "gq": [
+        "whois.dominio.gq",
+        "Invalid query or domain name not known"
+    ],
+    "gr": [
+        "http:\/\/grwhois.ics.forth.gr:800\/plainwhois\/plainWhois?domainName=",
+        "not exist"
     ],
     "graphics": [
         "whois.donuts.co",
@@ -1927,11 +2127,544 @@
         "whois.nic.menu",
         "No Data Found"
     ],
+    "mg": [
+        "whois.nic.mg",
+        "Domain Status: No Object Found"
+    ],
+    "mi.th": [
+        "whois.thnic.net",
+        "No match for"
+    ],
+    "miami": [
+        "whois-dub.mm-registry.com",
+        "is available for registration"
+    ],
+    "miasta.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "mil": [
+        "whois.internic.net",
+        "No match for"
+    ],
+    "mil.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "mil.ec": [
+        "whois.lac.net",
+        "No match found"
+    ],
+    "mil.gt": [
+        "http:\/\/www.gt\/cgi-bin\/whois.cgi?domain=",
+        "DOMINIO NO REGISTRADO"
+    ],
+    "mil.id": [
+        "whois.idnic.net.id",
+        "Not found"
+    ],
+    "mil.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "mil.za": [
+        "whois.co.za",
+        "No information available"
+    ],
+    "mini": [
+        "whois.ksregistry.net",
+        "not found..."
+    ],
+    "mk": [
+        "whois.marnet.mk",
+        "% No entries found."
+    ],
+    "ml": [
+        "whois.dot.ml",
+        "Invalid query or domain name not known"
+    ],
+    "mn": [
+        "whois.afilias-grs.info",
+        "NOT FOUND"
+    ],
+    "mo": [
+        "whois.monic.mo",
+        "No match for"
+    ],
+    "mo.cn": [
+        "whois.cnnic.net.cn",
+        "no matching record"
+    ],
+    "mobi": [
+        "whois.dotmobiregistry.net",
+        "NOT FOUND"
+    ],
+    "moda": [
+        "whois.unitedtld.com",
+        "Domain not found."
+    ],
+    "monash": [
+        "whois.nic.monash",
+        "No Data Found"
+    ],
+    "money": [
+        "whois.donuts.co",
+        "Domain not found."
+    ],
+    "mortgage": [
+        "whois.rightside.co",
+        "Domain not found."
+    ],
+    "moscow": [
+        "whois.nic.moscow",
+        "No entries found"
+    ],
+    "mov": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "ms": [
+        "whois.nic.ms",
+        "No Object Found"
+    ],
+    "msk.ru": [
+        "whois.nic.ru",
+        "No entries found"
+    ],
+    "mtpc": [
+        "whois.nic.gmo",
+        "DOMAIN NOT FOUND"
+    ],
+    "mu": [
+        "whois.nic.mu",
+        "Domain Status: No Object Found"
+    ],
+    "muni.il": [
+        "whois.isoc.org.il",
+        "No data was found"
+    ],
+    "museum": [
+        "whois.museum",
+        "NOT FOUND"
+    ],
+    "mx": [
+        "whois.nic.mx",
+        "Object_Not_Found"
+    ],
+    "my": [
+        "whois.mynic.net.my",
+        "does not exist in database"
+    ],
+    "mz": [
+        "whois.nic.mz",
+        "Domain Status: No Object Found"
+    ],
+    "na": [
+        "whois.na-nic.com.na",
+        "Domain Status: No Object Found"
+    ],
+    "name": [
+        "whois.nic.name",
+        "No match"
+    ],
+    "navy": [
+        "whois.rightside.co",
+        "Domain not found."
+    ],
+    "nc": [
+        "whois.nc",
+        "No entries found"
+    ],
+    "ne.jp": [
+        "whois.nic.ad.jp",
+        "No match!!"
+    ],
+    "ne.kr": [
+        "whois.nic.or.kr",
+        "is not registered"
+    ],
+    "net": [
+        "whois.crsnic.net",
+        "No match for"
+    ],
+    "net.au": [
+        "whois.aunic.net",
+        "No Data Found"
+    ],
+    "net.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "net.cn": [
+        "whois.cnnic.net.cn",
+        "no matching record"
+    ],
+    "net.co": [
+        "whois.nic.co",
+        "Not found"
+    ],
+    "net.ec": [
+        "whois.lac.net",
+        "No match found"
+    ],
+    "net.gr": [
+        "http:\/\/grwhois.ics.forth.gr:800\/plainwhois\/plainWhois?domainName=",
+        "not exist"
+    ],
+    "net.gt": [
+        "http:\/\/www.gt\/cgi-bin\/whois.cgi?domain=",
+        "DOMINIO NO REGISTRADO"
+    ],
+    "net.hk": [
+        "whois.hkdnr.net.hk",
+        "The domain has not been registered"
+    ],
+    "net.il": [
+        "whois.isoc.org.il",
+        "No data was found"
+    ],
+    "net.in": [
+        "whois.inregistry.in",
+        "NOT FOUND"
+    ],
+    "net.mm": [
+        "whois.nic.mm",
+        "No domains matched"
+    ],
+    "net.mx": [
+        "whois.nic.mx",
+        "Object_Not_Found"
+    ],
+    "net.my": [
+        "whois.mynic.net.my",
+        "does not exist"
+    ],
+    "net.nz": [
+        "whois.srs.net.nz",
+        "220 Available"
+    ],
+    "net.ph": [
+        "http:\/\/www2.dot.ph\/WhoIs.asp?Domain=",
+        "is still available"
+    ],
+    "net.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "net.ru": [
+        "whois.ripn.net",
+        "No entries found"
+    ],
+    "net.sg": [
+        "whois.nic.net.sg",
+        "Domain Not Found"
+    ],
+    "net.th": [
+        "whois.thnic.net",
+        "No match for"
+    ],
+    "net.tr": [
+        "whois.metu.edu.tr",
+        "No match found"
+    ],
+    "net.tw": [
+        "whois.twnic.net",
+        "No Found"
+    ],
+    "net.ua": [
+        "whois.net.ua",
+        "No entries found"
+    ],
+    "net.uk": [
+        "whois.nic.uk",
+        "No match"
+    ],
+    "net.ve": [
+        "whois.nic.ve",
+        "No match for"
+    ],
+    "net.za": [
+        "whois.co.za",
+        "No information available"
+    ],
+    "network": [
+        "whois.donuts.co",
+        "Domain not found."
+    ],
+    "new": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "nexus": [
+        "domain-registry-whois.l.google.com",
+        "Domain not found."
+    ],
+    "nf": [
+        "whois.nic.nf",
+        "Domain Status: No Object Found"
+    ],
+    "ng": [
+        "whois.nic.net.ng",
+        "Domain Status: No Object Found"
+    ],
+    "ngo": [
+        "whois.publicinterestregistry.net",
+        "NOT FOUND"
+    ],
+    "ngo.ph": [
+        "http:\/\/www2.dot.ph\/WhoIs.asp?Domain=",
+        "is still available"
+    ],
+    "ngo.za": [
+        "whois.co.za",
+        "No information available"
+    ],
+    "nico": [
+        "whois.nic.nico",
+        "DOMAIN NOT FOUND"
+    ],
     "ninja": [
         "whois.donuts.co",
         "Domain not found"
     ],
     "pink": [
+    "nissan": [
+        "whois.nic.gmo",
+        "DOMAIN NOT FOUND"
+    ],
+    "nl": [
+        "whois.domain-registry.nl",
+        "is free"
+    ],
+    "nm.cn": [
+        "whois.cnnic.net.cn",
+        "no matching record"
+    ],
+    "nm.kr": [
+        "whois.nic.or.kr",
+        "is not registered"
+    ],
+    "no": [
+        "whois.norid.no",
+        "No match"
+    ],
+    "no.com": [
+        "whois.centralnic.com",
+        "DOMAIN NOT FOUND"
+    ],
+    "nom.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "nom.co": [
+        "whois.nic.co",
+        "Not found"
+    ],
+    "nom.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "nom.ro": [
+        "whois.rotld.ro",
+        "No entries found"
+    ],
+    "nom.za": [
+        "whois.co.za",
+        "No information available"
+    ],
+    "nra": [
+        "whois.afilias-srs.net",
+        "NOT FOUND"
+    ],
+    "nrw": [
+        "whois.nic.nrw",
+        "% no matching objects found"
+    ],
+    "nt.ro": [
+        "whois.rotld.ro",
+        "No entries found"
+    ],
+    "ntr.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "nu": [
+        "whois.nic.nu",
+        "not found"
+    ],
+    "nx.cn": [
+        "whois.cnnic.net.cn",
+        "no matching record"
+    ],
+    "nz": [
+        "whois.srs.net.nz",
+        "220 Available"
+    ],
+    "odo.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "om": [
+        "whois.registry.om",
+        "No Data Found"
+    ],
+    "one": [
+        "whois.nic.one",
+        "No Data Found"
+    ],
+    "ong": [
+        "whois.publicinterestregistry.net",
+        "NOT FOUND"
+    ],
+    "onl": [
+        "whois.afilias-srs.net",
+        "NOT FOUND"
+    ],
+    "ooo": [
+        "whois.nic.ooo",
+        "No match for"
+    ],
+    "or.ac": [
+        "whois.nic.ac",
+        "Available"
+    ],
+    "or.at": [
+        "whois.nic.at",
+        "nothing found"
+    ],
+    "or.jp": [
+        "whois.jprs.jp",
+        "No match!!"
+    ],
+    "or.kr": [
+        "whois.nic.or.kr",
+        "is not registered"
+    ],
+    "or.th": [
+        "whois.thnic.net",
+        "No match for"
+    ],
+    "org": [
+        "whois.publicinterestregistry.net",
+        "NOT FOUND"
+    ],
+    "org.au": [
+        "whois.aunic.net",
+        "No Data Found"
+    ],
+    "org.br": [
+        "whois.nic.br",
+        "No match for"
+    ],
+    "org.cn": [
+        "whois.cnnic.net.cn",
+        "no matching record"
+    ],
+    "org.ec": [
+        "whois.lac.net",
+        "No match found"
+    ],
+    "org.gr": [
+        "http:\/\/grwhois.ics.forth.gr:800\/plainwhois\/plainWhois?domainName=",
+        "not exist"
+    ],
+    "org.gt": [
+        "http:\/\/www.gt\/cgi-bin\/whois.cgi?domain=",
+        "DOMINIO NO REGISTRADO"
+    ],
+    "org.hk": [
+        "whois.hkdnr.net.hk",
+        "The domain has not been registered"
+    ],
+    "org.il": [
+        "whois.isoc.org.il",
+        "No data was found"
+    ],
+    "org.in": [
+        "whois.inregistry.in",
+        "NOT FOUND"
+    ],
+    "org.mm": [
+        "whois.nic.mm",
+        "No domains matched"
+    ],
+    "org.mx": [
+        "whois.nic.mx",
+        "Object_Not_Found"
+    ],
+    "org.my": [
+        "whois.mynic.net.my",
+        "does not exist"
+    ],
+    "org.nz": [
+        "whois.srs.net.nz",
+        "220 Available"
+    ],
+    "org.ph": [
+        "http:\/\/www2.dot.ph\/WhoIs.asp?Domain=",
+        "is still available"
+    ],
+    "org.pl": [
+        "whois.dns.pl",
+        "No information available"
+    ],
+    "org.ro": [
+        "whois.rotld.ro",
+        "No entries found"
+    ],
+    "org.rs": [
+        "whois.rnids.rs",
+        "%ERROR:103"
+    ],
+    "org.ru": [
+        "whois.nic.ru",
+        "No entries found"
+    ],
+    "org.sg": [
+        "whois.nic.net.sg",
+        "Domain Not Found"
+    ],
+    "org.tr": [
+        "whois.metu.edu.tr",
+        "No match found"
+    ],
+    "org.tw": [
+        "whois.twnic.net",
+        "No Found"
+    ],
+    "org.ua": [
+        "whois.net.ua",
+        "No entries found"
+    ],
+    "org.uk": [
+        "whois.nic.uk",
+        "No match"
+    ],
+    "org.ve": [
+        "whois.nic.ve",
+        "No match for"
+    ],
+    "org.za": [
+        "http:\/\/org.za\/cgi-bin\/rwhois?format=full&domain=",
+        "Domain not registered"
+    ],
+    "organic": [
+        "whois.afilias.net",
+        "NOT FOUND"
+    ],
+    "ovh": [
+        "whois-ovh.nic.fr",
+        "Requested Domain cannot be found"
+    ],
+    "paris": [
+        "whois-paris.nic.fr",
+        "Requested Domain cannot be found"
+    ],
+    "partners": [
+        "whois.donuts.co",
+        "Domain not found."
+    ],
+    "parts": [
         "whois.donuts.co",
         "Domain not found"
     ],
