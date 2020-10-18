@@ -2,59 +2,79 @@
 
 namespace Phois\Whois;
 
+use InvalidArgumentException;
+use RuntimeException;
+
+/**
+ * Class Whois
+ * @package Phois\Whois
+ */
 class Whois
 {
+    /** @var string  */
     private $domain;
 
+    /** @var string  */
     private $TLDs;
 
+    /** @var string  */
     private $subDomain;
 
+    /** @var array  */
     private $servers;
-    
+
+    /** @var string */
     private $whoisInfo;
 
+    /** @var int  */
     private $timeout = 20;
 
     //socket options
-    private $socErrno;
-    private $socErrstr;
+    /** @var int */
+    private $socketPort = 43;
+    /** @var int */
+    private $socketErrorNo;
+    /** @var string */
+    private $socketError;
 
     /**
-     * @param string $domain full domain name (without trailing dot)
+     * @param string $domain full domain name (no subdomain and without trailing dot)
      */
-    public function __construct($domain)
+    public function __construct(string $domain)
     {
         $this->domain = strtolower($domain);
         // check $domain syntax and split full domain name on subdomain and TLDs
         if (
             preg_match('/^([\p{L}\d\-]+)\.((?:[\p{L}\d\-]+\.?)+)$/ui', $this->domain, $matches)
-            || preg_match('/^(xn\-\-[\p{L}\d\-]+)\.(xn\-\-(?:[a-z\d-]+\.?1?)+)$/ui', $this->domain, $matches)
+            || preg_match('/^(xn--[\p{L}\d\-]+)\.(xn--(?:[a-z\d-]+\.?1?)+)$/ui', $this->domain, $matches)
         ) {
             $this->subDomain = $matches[1];
             $this->TLDs = $matches[2];
-        } else
-            throw new \InvalidArgumentException("Invalid $domain syntax");
+        } else {
+            throw new InvalidArgumentException("Invalid $domain syntax");
+        }
+
         // setup whois servers array from json file
         $this->servers = json_decode(file_get_contents( __DIR__.'/whois.servers.json' ), true);
         
-        if (!$this->isValid())
-        	throw new \InvalidArgumentException("Domain name isn't valid!");
+        if (!$this->isValid()){
+        	throw new InvalidArgumentException("Domain name isn't valid!");
+        }
     }
-    
+
     /**
-     * @param string, domain whois information
+     * @return string
      */
-    public function info()
+    public function info(): string
     {
-        if ($this->whoisInfo != '')
+        if ($this->whoisInfo !== '')
             return $this->whoisInfo;
 
         if ($this->isValid()) {
             $whois_server = $this->servers[$this->TLDs][0];
 
             // If TLDs have been found
-            if ($whois_server != '') {
+            if ($whois_server !== '') {
 
                 // if whois server serve reply over HTTP protocol instead of WHOIS protocol
                 if (preg_match("/^https?:\/\//i", $whois_server)) {
@@ -73,17 +93,22 @@ class Whois
 
                     if (curl_error($ch)) {
                         return "Connection error!";
-                    } else {
-                        $string = strip_tags($data);
                     }
+
+                    $string = strip_tags($data);
+
                     curl_close($ch);
 
                 } else {
+                    // check whois server exist
+                    if (gethostbyname($whois_server) === $whois_server) {
+                        return "Whois server not exist error!";
+                    }
 
                     // Getting whois information
-                    $fp = fsockopen($whois_server, 43, $this->socErrno, $this->socErrstr, $this->timeout);
+                    $fp = fsockopen($whois_server, $this->socketPort, $this->socketErrorNo, $this->socketError, $this->timeout);
                     if (!$fp) {
-                        return "Connection error! ".$this->socErrno.":".$this->socErrstr;
+                        return "Connection error! ".$this->socketErrorNo.":".$this->socketError;
                     }
                     stream_set_blocking($fp, true);
                     stream_set_timeout($fp, $this->timeout);
@@ -104,15 +129,15 @@ class Whois
 
                             $lineArr = explode (":", $line);
 
-                            if (strtolower($lineArr[0]) == 'whois server') {
+                            if (strtolower($lineArr[0]) === 'whois server') {
                                 $whois_server = trim($lineArr[1]);
                             }
                             $info = stream_get_meta_data($fp);
                         }
                         // Getting whois information
-                        $fp = fsockopen($whois_server, 43, $this->socErrno, $this->socErrstr, $this->timeout);
+                        $fp = fsockopen($whois_server, $this->socketPort, $this->socketErrorNo, $this->socketError, $this->timeout);
                         if (!$fp) {
-                            return "Connection error! ".$this->socErrno.":".$this->socErrstr;
+                            return "Connection error! ".$this->socketErrorNo.":".$this->socketError;
                         }
 
                         stream_set_blocking($fp, TRUE);
@@ -143,15 +168,19 @@ class Whois
                 $string_utf8 = mb_convert_encoding($string, "UTF-8", $string_encoding);
 
                 $this->whoisInfo = htmlspecialchars($string_utf8, ENT_COMPAT, "UTF-8", true);
+
                 return $this->whoisInfo;
-            } else {
-                return "No whois server for this tld in list!";
             }
-        } else {
-            return "Domain name isn't valid!";
+
+            return "No whois server for this tld in list!";
         }
+
+        return "Domain name isn't valid!";
     }
 
+    /**
+     * @return \stdClass
+     */
     public function data()
     {
       $result = new \stdClass();
@@ -226,7 +255,7 @@ class Whois
           }
         }
 
-      } catch (Exception $e) {
+      } catch (RuntimeException $e) {
         $result->status = -1;
         $result->message = 'exception';
       }
@@ -242,7 +271,10 @@ class Whois
         return isset($this->servers[$this->TLDs]);
     }
 
-    public function htmlInfo()
+    /**
+     * @return string
+     */
+    public function htmlInfo(): string
     {
         return nl2br($this->info());
     }
@@ -276,10 +308,11 @@ class Whois
      */
     public function isAvailable()
     {
-        if ($this->whoisInfo == '')
+        if ($this->whoisInfo == '') {
             $whois_string = $this->info();
-        else 
-        	$whois_string = $this->whoisInfo;
+        } else {
+            $whois_string = $this->whoisInfo;
+        }
         $not_found_string = '';
         if (isset($this->servers[$this->TLDs][1])) {
            $not_found_string = $this->servers[$this->TLDs][1];
@@ -289,22 +322,21 @@ class Whois
         $whois_string = @preg_replace("/\s+/", ' ', $whois_string);
 
         $array = explode (":", $not_found_string);
-        if ($array[0] == "MAXCHARS") {
-            if (strlen($whois_string2) <= $array[1]) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (preg_match("/" . $not_found_string . "/i", $whois_string)) {
-                return true;
-            } else {
-                return false;
-            }
+        if ($array[0] === "MAXCHARS") {
+            return strlen($whois_string2) <= $array[1];
         }
+
+        if (preg_match("/" . $not_found_string . "/i", $whois_string)) {
+            return true;
+        }
+
+        return false;
     }
 
-    public function isValid()
+    /**
+     * @return bool
+     */
+    public function isValid(): bool
     {
         if (
             isset($this->servers[$this->TLDs][0])
