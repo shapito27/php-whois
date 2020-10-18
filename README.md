@@ -1,42 +1,21 @@
 # php-whois
 
 PHP class to retrieve WHOIS information.
+## Installation
+``composer require "phois/whois"``
 
 ## Example of usage
 
 ```php
-
 <?php
-
-$sld = 'reg.ru';
-
-$domain = new Phois\Whois\Whois($sld);
-
-$whois_answer = $domain->info();
-
-echo $whois_answer;
-
-if ($domain->isAvailable()) {
-    echo "Domain is available\n";
-} else {
-    echo "Domain is registered\n";
-}
-
-```
-
-A more complete example:
-
-```php
-
-<?php
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/src/Phois/Whois/Whois.php';
 
 $sld = 'nabi.ir';
 
 try {
-	$domain = new Phois\Whois\Whois($sld);
+	$domain = new \Phois\Whois\Whois($sld);
 } catch (InvalidArgumentException $e) {
-	die($e->getMessage()."\n");
+	die($e->getMessage() . "\n");
 }
 
 if ($domain->isAvailable()) {
@@ -44,5 +23,4 @@ if ($domain->isAvailable()) {
 } else {
 	echo "Domain is registered\n";
 }
-
 ```
