@@ -10,12 +10,12 @@ PHP class to retrieve WHOIS information.
 <?php
 require_once __DIR__ . '/src/Phois/Whois/Whois.php';
 
-$sld = 'nabi.ir';
+$domain = 'nabi.ir';
 
 try {
-	$domain = new \Phois\Whois\Whois($sld);
+    $domain = new Phois\Whois\Whois($domain);
 } catch (InvalidArgumentException $e) {
-	die($e->getMessage() . "\n");
+    die($e->getMessage() . '\n');
 }
 
 if ($domain->isAvailable()) {
