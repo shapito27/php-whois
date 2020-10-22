@@ -242,7 +242,6 @@ class Whois
                     if (
                         (stripos($line, 'Updated Date:') !== false)
                         || (stripos($line, 'modified:') !== false)
-                        || (stripos($line, 'Last update of whois database:') !== false)
                         || (stripos($line, 'Last updated:') !== false)
                     ) {
                         $data['update_date'] = trim(str_replace('Updated Date:', '', $line));
