@@ -219,32 +219,59 @@ class Whois
             // Make sure the status is still the default value, and the not_found
             // string value are exists before extracting the data from info.
             if (($result->status == 0) && ($not_found_string)) {
-                $exploded_info = explode("\n", $info);
+                $explodedInfo = explode("\n", $info);
                 $data          = [];
-                foreach ($exploded_info as $lineNumber => $line) {
-                    if (
-                        (stripos($line, 'Creation Date:') !== false)
-                        || (stripos($line, 'created:') !== false)
-                        || (stripos($line, 'Registered on:') !== false)
-                        || (stripos($line, 'Registered:') !== false)
-                    ) {
-                        $data['creation_date'] = trim(str_replace('Creation Date:', '', $line));
+
+                $creationDateSynonyms = [
+                    'Creation Date:',
+                    'created:',
+                    'Registered on:',
+                    'Registered:',
+                ];
+
+                $expiryDateSynonyms = [
+                    'Registry Expiry Date:',
+                    'expires:',
+                    'Expiry date:',
+                ];
+
+                $updateDateSynonyms = [
+                    'Last updated date:',
+                    'Updated Date:',
+                    'modified:',
+                    'Last updated:',
+                ];
+
+                $nameServerSynonyms = [
+                    'Name Server:',
+                    'nserver:',
+                    'Name servers:',
+                    'Hostname:',
+                ];
+
+                foreach ($explodedInfo as $lineNumber => $line) {
+                    //looking for creation date
+                    foreach ($creationDateSynonyms as $creationDateSynonym) {
+                        if (stripos($line, $creationDateSynonym) !== false) {
+                            $data['creation_date'] = trim(str_replace($creationDateSynonym, '', $line));
+                            break;
+                        }
                     }
 
-                    if (
-                        (stripos($line, 'Registry Expiry Date:') !== false)
-                        || (stripos($line, 'expires:') !== false)
-                        || (stripos($line, 'Expiry date:') !== false)
-                    ) {
-                        $data['expiration_date'] = trim(str_replace('Registry Expiry Date:', '', $line));
+                    //looking for expiry date
+                    foreach ($expiryDateSynonyms as $expiryDateSynonym) {
+                        if (stripos($line, $expiryDateSynonym) !== false) {
+                            $data['expiration_date'] = trim(str_replace($expiryDateSynonym, '', $line));
+                            break;
+                        }
                     }
 
-                    if (
-                        (stripos($line, 'Updated Date:') !== false)
-                        || (stripos($line, 'modified:') !== false)
-                        || (stripos($line, 'Last updated:') !== false)
-                    ) {
-                        $data['update_date'] = trim(str_replace('Updated Date:', '', $line));
+                    //looking for updated date
+                    foreach ($updateDateSynonyms as $updateDateSynonym) {
+                        if (stripos($line, $updateDateSynonym) !== false) {
+                            $data['update_date'] = trim(str_replace($updateDateSynonym, '', $line));
+                            break;
+                        }
                     }
 
                     if (stripos($line, 'Registry Domain ID:') !== false) {
@@ -265,15 +292,15 @@ class Whois
                         $data['registrar']['id'] = trim(str_replace('Registrar IANA ID:', '', $line));
                     }
 
-                    if ((stripos($line, 'Name Server:') !== false)
-                        || (stripos($line, 'nserver:') !== false)
-                        || (stripos($line, 'Name servers:') !== false)
-                        || (stripos($line, 'Hostname:') !== false)
-                    ) {
-                        if (!isset($data['name_servers'])) {
-                            $data['name_servers'] = [];
+                    //looking for name_servers
+                    foreach ($nameServerSynonyms as $nameServerSynonym) {
+                        if (stripos($line, $nameServerSynonym) !== false) {
+                            if (!isset($data['name_servers'])) {
+                                $data['name_servers'] = [];
+                            }
+                            $data['name_servers'][] = strtolower(trim(str_replace($nameServerSynonym, '', $line)));
+                            break;
                         }
-                        $data['name_servers'][] = trim(str_replace('Name Server:', '', $line));
                     }
                 }
 
