@@ -70,7 +70,7 @@ class Whois
      */
     public function info(): string
     {
-        if ($this->whoisInfo !== '') {
+        if (!empty($this->whoisInfo)) {
             return $this->whoisInfo;
         }
 
@@ -338,11 +338,12 @@ class Whois
      */
     public function isAvailable()
     {
-        if ($this->whoisInfo == '') {
+        if (empty($this->whoisInfo)) {
             $whois_string = $this->info();
         } else {
             $whois_string = $this->whoisInfo;
         }
+
         $not_found_string = '';
         if (isset($this->servers[$this->TLDs][1])) {
             $not_found_string = $this->servers[$this->TLDs][1];
