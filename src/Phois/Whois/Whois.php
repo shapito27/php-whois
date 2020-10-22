@@ -253,7 +253,7 @@ class Whois
                     //looking for creation date
                     foreach ($creationDateSynonyms as $creationDateSynonym) {
                         if (stripos($line, $creationDateSynonym) !== false) {
-                            $data['creation_date'] = trim(str_replace($creationDateSynonym, '', $line));
+                            $data['creation_date'] = trim(str_ireplace($creationDateSynonym, '', $line));
                             break;
                         }
                     }
@@ -261,7 +261,7 @@ class Whois
                     //looking for expiry date
                     foreach ($expiryDateSynonyms as $expiryDateSynonym) {
                         if (stripos($line, $expiryDateSynonym) !== false) {
-                            $data['expiration_date'] = trim(str_replace($expiryDateSynonym, '', $line));
+                            $data['expiration_date'] = trim(str_ireplace($expiryDateSynonym, '', $line));
                             break;
                         }
                     }
@@ -269,27 +269,27 @@ class Whois
                     //looking for updated date
                     foreach ($updateDateSynonyms as $updateDateSynonym) {
                         if (stripos($line, $updateDateSynonym) !== false) {
-                            $data['update_date'] = trim(str_replace($updateDateSynonym, '', $line));
+                            $data['update_date'] = trim(str_ireplace($updateDateSynonym, '', $line));
                             break;
                         }
                     }
 
                     if (stripos($line, 'Registry Domain ID:') !== false) {
-                        $data['registry_domain_id'] = trim(str_replace('Registry Domain ID:', '', $line));
+                        $data['registry_domain_id'] = trim(str_ireplace('Registry Domain ID:', '', $line));
                     }
 
                     if ((stripos($line, 'Registrar:') !== false)) {
                         if (!isset($data['registrar'])) {
                             $data['registrar'] = [];
                         }
-                        $data['registrar']['name'] = trim(str_replace('Registrar:', '', $line));
+                        $data['registrar']['name'] = trim(str_ireplace('Registrar:', '', $line));
                     }
 
                     if (stripos($line, 'Registrar IANA ID:') !== false) {
                         if (!isset($data['registrar'])) {
                             $data['registrar'] = [];
                         }
-                        $data['registrar']['id'] = trim(str_replace('Registrar IANA ID:', '', $line));
+                        $data['registrar']['id'] = trim(str_ireplace('Registrar IANA ID:', '', $line));
                     }
 
                     //looking for name_servers
@@ -298,7 +298,7 @@ class Whois
                             if (!isset($data['name_servers'])) {
                                 $data['name_servers'] = [];
                             }
-                            $data['name_servers'][] = strtolower(trim(str_replace($nameServerSynonym, '', $line)));
+                            $data['name_servers'][] = strtolower(trim(str_ireplace($nameServerSynonym, '', $line)));
                             break;
                         }
                     }
