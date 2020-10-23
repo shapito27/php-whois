@@ -227,12 +227,14 @@ class Whois
                     'created:',
                     'Registered on:',
                     'Registered:',
+                    'Registration Time:'
                 ];
 
                 $expiryDateSynonyms = [
                     'Registry Expiry Date:',
                     'expires:',
                     'Expiry date:',
+                    'Expiration Time:'
                 ];
 
                 $updateDateSynonyms = [
@@ -298,7 +300,10 @@ class Whois
                             if (!isset($data['name_servers'])) {
                                 $data['name_servers'] = [];
                             }
-                            $data['name_servers'][] = strtolower(trim(str_ireplace($nameServerSynonym, '', $line)));
+                            $nameServer = strtolower(trim(str_ireplace($nameServerSynonym, '', $line)));
+                            if (!empty($nameServer)) {
+                                $data['name_servers'][] = $nameServer;
+                            }
                             break;
                         }
                     }
