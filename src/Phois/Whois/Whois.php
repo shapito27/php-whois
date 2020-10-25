@@ -234,18 +234,19 @@ class Whois
 
                 $expiryDateSynonyms = [
                     'Registry Expiry Date:',
-                    'expires:',
                     'Expiry date:',
                     'Expiration Time:',
                     'paid-till:',
+                    'expires:',
                 ];
 
                 $updateDateSynonyms = [
                     'domain_datelastmodified:',
                     'Last updated date:',
                     'Updated Date:',
-                    'modified:',
                     'Last updated:',
+                    'modified:',
+                    'changed:',
                 ];
 
                 $nameServerSynonyms = [
@@ -266,29 +267,41 @@ class Whois
                 ];
 
                 foreach ($explodedInfo as $lineNumber => $line) {
-                    //looking for creation date
-                    foreach ($creationDateSynonyms as $creationDateSynonym) {
-                        if (stripos($line, $creationDateSynonym) !== false) {
-                            $data['creation_date'] = trim(str_ireplace($creationDateSynonym, '', $line));
-                            break;
+                    if (!isset($data['creation_date'])) {
+                        //looking for creation date
+                        foreach ($creationDateSynonyms as $creationDateSynonym) {
+                            if (stripos($line, $creationDateSynonym) !== false) {
+                                $creationDate = trim(str_ireplace($creationDateSynonym, '', $line));
+                                if (!empty($creationDate)) {
+                                    $data['creation_date'] = $creationDate;
+                                    break;
+                                }
+                            }
                         }
                     }
 
                     //looking for expiry date
-                    foreach ($expiryDateSynonyms as $expiryDateSynonym) {
-                        if (stripos($line, $expiryDateSynonym) !== false) {
-                            $data['expiration_date'] = trim(str_ireplace($expiryDateSynonym, '', $line));
-                            break;
+                    if (!isset($data['expiration_date'])) {
+                        foreach ($expiryDateSynonyms as $expiryDateSynonym) {
+                            if (stripos($line, $expiryDateSynonym) !== false) {
+                                $expirationDate = trim(str_ireplace($expiryDateSynonym, '', $line));
+                                    if (!empty($expirationDate)) {
+                                        $data['expiration_date'] = $expirationDate;
+                                        break;
+                                    }
+                            }
                         }
                     }
 
                     //looking for updated date
-                    foreach ($updateDateSynonyms as $updateDateSynonym) {
-                        if (stripos($line, $updateDateSynonym) !== false) {
-                            $updateDate = trim(str_ireplace($updateDateSynonym, '', $line));
-                            if (!empty($updateDate)) {
-                                $data['update_date'] = $updateDate;
-                                break;
+                    if (!isset($data['update_date'])) {
+                        foreach ($updateDateSynonyms as $updateDateSynonym) {
+                            if (stripos($line, $updateDateSynonym) !== false) {
+                                $updateDate = trim(str_ireplace($updateDateSynonym, '', $line));
+                                if (!empty($updateDate)) {
+                                    $data['update_date'] = $updateDate;
+                                    break;
+                                }
                             }
                         }
                     }
