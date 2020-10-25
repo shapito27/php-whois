@@ -223,21 +223,25 @@ class Whois
                 $data          = [];
 
                 $creationDateSynonyms = [
+                    'domain_dateregistered:',
                     'Creation Date:',
                     'created:',
                     'Registered on:',
                     'Registered:',
-                    'Registration Time:'
+                    'Registration Time:',
+                    '[最終更新]'
                 ];
 
                 $expiryDateSynonyms = [
                     'Registry Expiry Date:',
                     'expires:',
                     'Expiry date:',
-                    'Expiration Time:'
+                    'Expiration Time:',
+                    'paid-till:',
                 ];
 
                 $updateDateSynonyms = [
+                    'domain_datelastmodified:',
                     'Last updated date:',
                     'Updated Date:',
                     'modified:',
@@ -249,6 +253,16 @@ class Whois
                     'nserver:',
                     'Name servers:',
                     'Hostname:',
+                    'p. [ネームサーバ]',
+                    'ns_name_01:',
+                    'ns_name_02:',
+                    'ns_name_03:',
+                    'ns_name_04:',
+                ];
+
+                $registrarSynonyms = [
+                    'registrar_name:',
+                    'Registrar:',
                 ];
 
                 foreach ($explodedInfo as $lineNumber => $line) {
@@ -271,40 +285,57 @@ class Whois
                     //looking for updated date
                     foreach ($updateDateSynonyms as $updateDateSynonym) {
                         if (stripos($line, $updateDateSynonym) !== false) {
-                            $data['update_date'] = trim(str_ireplace($updateDateSynonym, '', $line));
-                            break;
+                            $updateDate = trim(str_ireplace($updateDateSynonym, '', $line));
+                            if (!empty($updateDate)) {
+                                $data['update_date'] = $updateDate;
+                                break;
+                            }
                         }
                     }
 
                     if (stripos($line, 'Registry Domain ID:') !== false) {
-                        $data['registry_domain_id'] = trim(str_ireplace('Registry Domain ID:', '', $line));
+                        $registryDomainId = trim(str_ireplace('Registry Domain ID:', '', $line));
+                        if (!empty($registryDomainId)) {
+                            $data['registry_domain_id'] = $registryDomainId;
+                        }
                     }
 
-                    if ((stripos($line, 'Registrar:') !== false)) {
-                        if (!isset($data['registrar'])) {
-                            $data['registrar'] = [];
+                    foreach ($registrarSynonyms as $registrarSynonym) {
+                        if ((stripos($line, $registrarSynonym) !== false)) {
+                            $registrarName = trim(str_ireplace($registrarSynonym, '', $line));
+                            if (!empty($registrarName)) {
+                                if (!isset($data['registrar'])) {
+                                    $data['registrar'] = [];
+                                }
+                                $data['registrar']['name'] = $registrarName;
+                                break;
+                            }
                         }
-                        $data['registrar']['name'] = trim(str_ireplace('Registrar:', '', $line));
                     }
 
                     if (stripos($line, 'Registrar IANA ID:') !== false) {
-                        if (!isset($data['registrar'])) {
-                            $data['registrar'] = [];
+                        $registrarId = trim(str_ireplace('Registrar IANA ID:', '', $line));
+                        if (!empty($registrarId)) {
+                            if (!isset($data['registrar'])) {
+                                $data['registrar'] = [];
+                            }
+
+                            $data['registrar']['id'] = $registrarId;
                         }
-                        $data['registrar']['id'] = trim(str_ireplace('Registrar IANA ID:', '', $line));
                     }
 
                     //looking for name_servers
                     foreach ($nameServerSynonyms as $nameServerSynonym) {
                         if (stripos($line, $nameServerSynonym) !== false) {
-                            if (!isset($data['name_servers'])) {
-                                $data['name_servers'] = [];
-                            }
                             $nameServer = strtolower(trim(str_ireplace($nameServerSynonym, '', $line)));
                             if (!empty($nameServer)) {
+                                if (!isset($data['name_servers'])) {
+                                    $data['name_servers'] = [];
+                                }
+
                                 $data['name_servers'][] = $nameServer;
+                                break;
                             }
-                            break;
                         }
                     }
                 }

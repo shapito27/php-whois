@@ -343,6 +343,10 @@
         "whois.register.bg",
         "does not exist in database"
     ],
+    "com.bg": [
+        "whois.register.bg",
+        "does not exist in database"
+    ],
     "bi": [
         "whois1.nic.bi",
         "Domain Status: No Object Found"
