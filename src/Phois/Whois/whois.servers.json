@@ -457,7 +457,7 @@
     ],
     "ca": [
         "whois.cira.ca",
-        "Domain status: available"
+        "Not found:"
     ],
     "cab": [
         "whois.donuts.co",
@@ -2716,7 +2716,7 @@
         "No match for"
     ],
     "org.za": [
-        "http:\/\/org.za\/cgi-bin\/rwhois?format=full&domain=",
+        "org-whois.registry.net.za",
         "Domain not registered"
     ],
     "organic": [

@@ -224,20 +224,25 @@ class Whois
 
                 $creationDateSynonyms = [
                     'domain_dateregistered:',
+                    'record created:',
                     'Creation Date:',
                     'created:',
                     'Registered on:',
                     'Registered:',
                     'Registration Time:',
-                    '[最終更新]'
+                    '[最終更新]',
+                    '[接続年月日]',
+                    '[登録年月日]',
                 ];
 
                 $expiryDateSynonyms = [
                     'Registry Expiry Date:',
                     'Expiry date:',
+                    'Expire Date:',
                     'Expiration Time:',
                     'paid-till:',
                     'expires:',
+                    '[有効期限]',
                 ];
 
                 $updateDateSynonyms = [
@@ -245,8 +250,10 @@ class Whois
                     'Last updated date:',
                     'Updated Date:',
                     'Last updated:',
+                    'Last Modified:',
                     'modified:',
                     'changed:',
+                    '[最終更新]',
                 ];
 
                 $nameServerSynonyms = [
@@ -259,18 +266,25 @@ class Whois
                     'ns_name_02:',
                     'ns_name_03:',
                     'ns_name_04:',
+                    '[Name Server]',
                 ];
 
                 $registrarSynonyms = [
+                    '[Registrant]',
                     'registrar_name:',
                     'Registrar:',
                 ];
+
+                $unnecessaryWord = 'before';
 
                 foreach ($explodedInfo as $lineNumber => $line) {
                     if (!isset($data['creation_date'])) {
                         //looking for creation date
                         foreach ($creationDateSynonyms as $creationDateSynonym) {
                             if (stripos($line, $creationDateSynonym) !== false) {
+                                if (strpos($line, $unnecessaryWord) !== false) {
+                                    $line = str_replace($unnecessaryWord, '', $line);
+                                }
                                 $creationDate = trim(str_ireplace($creationDateSynonym, '', $line));
                                 if (!empty($creationDate)) {
                                     $data['creation_date'] = $creationDate;
@@ -345,7 +359,10 @@ class Whois
                                 if (!isset($data['name_servers'])) {
                                     $data['name_servers'] = [];
                                 }
-
+                                //if have other data we do not need after space
+                                if (strpos($nameServer, ' ') !== false) {
+                                    $nameServer = substr($nameServer, 0, strpos($nameServer, ' '));
+                                }
                                 $data['name_servers'][] = $nameServer;
                                 break;
                             }
